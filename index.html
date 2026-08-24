@@ -322,16 +322,17 @@
     STATUS_ORDER.forEach(function(st){
       var share = total > 0 ? (counts[st] / total) : (1 / STATUS_ORDER.length);
       var width = FLOOR + share * freePool;
-      var pctVal = Math.round(counts[st] / total * 100);
-      var stage = document.createElement("div");
-      stage.className = "flow-stage";
-      stage.style.width = width + "%";
-      stage.style.background = STATUS_COLOR_RAW[st];
-      stage.style.color = STATUS_TEXT_COLOR[st];
-      stage.innerHTML =
-        '<div class="flow-value">' + counts[st] + '</div>' +
-        '<div class="flow-label">' + STATUS_SHORT_LABEL[st] + '</div>' +
-        '<div class="flow-pct">' + pctVal + '%</div>';
+      var pctNum = (total > 0 ? counts[st] / total : 0) * 100;
+            var pctDisplay = pctNum.toFixed(1).replace(".", ",");
+            var stage = document.createElement("div");
+            stage.className = "flow-stage";
+            stage.style.width = width + "%";
+            stage.style.background = STATUS_COLOR_RAW[st];
+            stage.style.color = STATUS_TEXT_COLOR[st];
+            stage.innerHTML =
+                      '<div class="flow-value">' + counts[st] + '</div>' +
+                      '<div class="flow-label">' + STATUS_SHORT_LABEL[st] + '</div>' +
+                      '<div class="flow-pct">' + pctDisplay + '%</div>';
       track.appendChild(stage);
     });
 
