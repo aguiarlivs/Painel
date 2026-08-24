@@ -308,10 +308,11 @@
   function render(counts, total, byDay){
     var totalForPct = total || 1;
 
-    var heroPctVal = Math.round(counts["Concluído"] / totalForPct * 100);
-    document.getElementById("heroPct").textContent = heroPctVal + "%";
-    document.getElementById("heroSub").textContent = counts["Concluído"] + " de " + total + " clientes migrados";
-    document.getElementById("heroFill").style.width = heroPctVal + "%";
+    var heroPctNum = counts["Concluído"] / totalForPct * 100;
+        var heroPctDisplay = heroPctNum.toFixed(1).replace(".", ",");
+        document.getElementById("heroPct").textContent = heroPctDisplay + "%";
+        document.getElementById("heroSub").textContent = counts["Concluído"] + " de " + total + " clientes migrados";
+        document.getElementById("heroFill").style.width = heroPctNum + "%";
 
     // funil de fluxo — largura proporcional ao volume em cada etapa (piso para manter legibilidade)
     var track = document.getElementById("flowTrack");
