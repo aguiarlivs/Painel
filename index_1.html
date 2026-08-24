@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel de Migração — Nova Plataforma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Open+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --page:#000d13;
+    --surface-1:#101d24;
+    --surface-2:#1a2b32;
+    --text-primary:#ffffff;
+    --text-secondary:#c3ccce;
+    --muted:#7d9096;
+    --border: rgba(255,255,255,0.10);
+    --accent-teal:#2ecfae;
+    --accent-blue:#378add;
+    --status-critical:#d03b3b;   /* Não Migrado */
+    --status-warning:#fab219;   /* Selecionado - Não Iniciado */
+    --status-serious:#ec835a;   /* Em Andamento */
+    --status-good:#0ca30c;      /* Concluído */
+    --on-dark:#ffffff;
+    --on-light:#211404;
+    --font-display: "Open Sans", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; height:100%;
+    background:var(--page);
+    color:var(--text-primary);
+    font-family: var(--font-body);
+    overflow:hidden;
+  }
+  body{
+    display:flex; flex-direction:column;
+    padding: 30px 44px 26px;
+    gap:22px;
+    min-height:100vh;
+    background:
+      radial-gradient(1100px 480px at 8% -10%, rgba(46,207,174,0.10), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(55,138,221,0.12), transparent 55%),
+      var(--page);
+  }
+  header{ display:flex; align-items:center; justify-content:space-between; }
+  .title-block{ display:flex; align-items:center; gap:16px; }
+  .brand-mark{
+    width:40px; height:40px; border-radius:12px; flex:none;
+    background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+  }
+  .title-block h1{
+    margin:0; font-family:var(--font-display); font-size:32px; font-weight:800; letter-spacing:-0.02em;
+  }
+  .title-block p{ margin:4px 0 0; color:var(--text-secondary); font-size:15px; }
+  .live-block{ text-align:right; }
+  .live-dot{
+    display:inline-block; width:10px; height:10px; border-radius:50%;
+    background:var(--status-good); margin-right:8px;
+    box-shadow: 0 0 0 0 rgba(12,163,12,0.6);
+    animation: pulse 2s infinite;
+  }
+  .live-dot.offline{ background:var(--status-critical); animation:none; box-shadow:none; }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(12,163,12,0.5);}
+    70%{ box-shadow:0 0 0 10px rgba(12,163,12,0);}
+    100%{ box-shadow:0 0 0 0 rgba(12,163,12,0);}
+  }
+  .live-label{ font-size:14px; color:var(--text-secondary); }
+  .updated{ font-size:22px; font-weight:700; margin-top:2px; font-variant-numeric: tabular-nums;}
+  .last-sync{ font-size:12px; color:var(--muted); margin-top:2px; font-variant-numeric: tabular-nums;}
+
+  /* hero */
+  .hero-section{
+    background:var(--surface-1); border:1px solid var(--border); border-radius:22px;
+    padding:26px 36px; display:flex; align-items:center; justify-content:space-between; gap:32px;
+  }
+  .hero-main{ flex:none; }
+  .hero-pct{ font-family:var(--font-display); font-size:96px; font-weight:800; line-height:1; font-variant-numeric: tabular-nums; }
+  .hero-sub{ margin-top:6px; font-size:18px; color:var(--text-secondary); }
+  .hero-track-wrap{ flex:1; }
+  .hero-track{
+    width:100%; height:20px; border-radius:999px; overflow:hidden;
+    background:var(--surface-2); border:1px solid var(--border);
+  }
+  .hero-fill{ height:100%; border-radius:999px; background:linear-gradient(90deg, var(--accent-teal), var(--status-good)); transition:width .6s ease; }
+  .hero-caption{ margin-top:10px; font-size:14px; color:var(--muted); }
+
+  /* flow funnel */
+  .flow-section{
+    background:var(--surface-1); border:1px solid var(--border); border-radius:22px;
+    padding:26px 32px 30px; flex:1; display:flex; flex-direction:column; min-height:0;
+  }
+  .flow-section h2{ margin:0 0 4px; font-size:20px; font-weight:700; color:var(--text-primary); }
+  .flow-section .subhead{ margin:0 0 20px; font-size:14px; color:var(--muted); }
+  .flow-track{ display:flex; flex:1; align-items:stretch; min-height:170px; }
+  .flow-stage{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:0 46px; text-align:center; flex:none;
+    clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 50%, calc(100% - 30px) 100%, 0 100%, 30px 50%);
+    transition: width .6s ease;
+  }
+  .flow-stage:first-child{
+    clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 50%, calc(100% - 30px) 100%, 0 100%);
+    padding-left:34px;
+  }
+  .flow-stage:last-child{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 30px 50%);
+    padding-right:34px;
+  }
+  .flow-stage + .flow-stage{ margin-left:-30px; }
+  .flow-value{ font-family:var(--font-display); font-size:56px; font-weight:800; line-height:1; font-variant-numeric: tabular-nums; }
+  .flow-label{ margin-top:8px; font-size:17px; font-weight:700; }
+  .flow-pct{ margin-top:4px; font-size:14px; opacity:0.85; font-variant-numeric: tabular-nums; }
+  .flow-arrow-note{ display:flex; justify-content:center; margin-top:14px; font-size:13px; color:var(--muted); }
+
+  /* activity */
+  .activity-section{
+    background:var(--surface-1); border:1px solid var(--border); border-radius:22px;
+    padding:22px 32px; display:flex; align-items:center; gap:36px;
+  }
+  .activity-stat{ flex:none; min-width:220px; }
+  .activity-stat .value{ font-family:var(--font-display); font-size:44px; font-weight:800; font-variant-numeric: tabular-nums; line-height:1; color:var(--accent-teal); }
+  .activity-stat .label{ margin-top:6px; font-size:14px; color:var(--text-secondary); }
+  .activity-trend{ flex:1; min-width:0; }
+  .activity-trend .trend-head{ display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-bottom:8px; }
+  .trend-bars{ display:flex; align-items:flex-end; gap:6px; height:60px; }
+  .trend-bar{ flex:1; background:var(--surface-2); border-radius:4px 4px 2px 2px; min-height:4px; position:relative; }
+  .trend-bar .fill{ position:absolute; left:0; right:0; bottom:0; border-radius:4px 4px 2px 2px; background:linear-gradient(180deg, var(--accent-teal), var(--accent-blue)); }
+  .activity-empty{ font-size:13px; color:var(--muted); margin-top:8px; }
+
+  .error-banner{
+    display:none; background:var(--status-critical); color:#fff; padding:10px 16px;
+    border-radius:12px; font-size:14px; font-weight:600;
+  }
+  .error-banner.show{ display:block; }
+</style>
+</head>
+<body>
+
+  <div class="error-banner" id="errorBanner">
+    Não foi possível carregar os dados da planilha. Verifique se o compartilhamento está liberado para "Qualquer pessoa com o link". Mostrando o último dado disponível.
+  </div>
+
+  <header>
+    <div class="title-block">
+      <div class="brand-mark"></div>
+      <div>
+        <h1>Migração de Clientes — Nova Plataforma</h1>
+        <p>Fluxo de migração em tempo real</p>
+      </div>
+    </div>
+    <div class="live-block">
+      <div><span class="live-dot" id="liveDot"></span><span class="live-label" id="liveLabel">ao vivo</span></div>
+      <div class="updated" id="clockNow">--:--:--</div>
+      <div class="last-sync" id="lastSync">&nbsp;</div>
+    </div>
+  </header>
+
+  <div class="hero-section">
+    <div class="hero-main">
+      <div class="hero-pct"><span id="heroPct">0%</span></div>
+      <div class="hero-sub" id="heroSub">0 de 0 clientes migrados</div>
+    </div>
+    <div class="hero-track-wrap">
+      <div class="hero-track"><div class="hero-fill" id="heroFill" style="width:0%"></div></div>
+      <div class="hero-caption">Progresso geral do fluxo de migração para a nova plataforma</div>
+    </div>
+  </div>
+
+  <div class="flow-section">
+    <h2>Fluxo de Migração</h2>
+    <p class="subhead">Como os clientes avançam pelas etapas — da fila até a conclusão</p>
+    <div class="flow-track" id="flowTrack"></div>
+  </div>
+
+  <div class="activity-section">
+    <div class="activity-stat">
+      <div class="value" id="activityWeek">0</div>
+      <div class="label">migrações concluídas nos últimos 7 dias</div>
+    </div>
+    <div class="activity-trend">
+      <div class="trend-head"><span>Últimos 14 dias</span><span>Conclusões por dia</span></div>
+      <div class="trend-bars" id="trendBars"></div>
+      <div class="activity-empty" id="activityEmpty" style="display:none;">Nenhuma migração concluída registrada ainda — este gráfico passa a preencher conforme o time for concluindo.</div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  // URL do "App da Web" gerada ao publicar o Apps Script (arquivo apps-script-painel.gs).
+  // Troque pelo link que termina em /exec — enquanto estiver com o valor abaixo, o painel
+  // mostra um aviso pedindo para configurar em vez de tentar buscar dados.
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxf2EKC4L17o1zHVct2fXFWWVQareymIvGCqbLj_8PXZu8qNdlQFjLuSCiAocHM9FAN/exec";
+  var REFRESH_MS = 60000;
+
+  var STATUS_ORDER = ["Não Migrado", "Selecionado - Não Iniciado", "Em Andamento", "Concluído"];
+  var STATUS_SHORT_LABEL = {
+    "Não Migrado": "Não Migrado",
+    "Selecionado - Não Iniciado": "Selecionado",
+    "Em Andamento": "Em Andamento",
+    "Concluído": "Concluído"
+  };
+  var STATUS_COLOR_RAW = {
+    "Não Migrado": "#d03b3b",
+    "Selecionado - Não Iniciado": "#fab219",
+    "Em Andamento": "#ec835a",
+    "Concluído": "#0ca30c"
+  };
+  var STATUS_TEXT_COLOR = {
+    "Não Migrado": "var(--on-dark)",
+    "Selecionado - Não Iniciado": "var(--on-light)",
+    "Em Andamento": "var(--on-light)",
+    "Concluído": "var(--on-dark)"
+  };
+
+  var callbackCounter = 0;
+  var CONFIG_PLACEHOLDER = "COLE_AQUI_A_URL_DO_APP_DA_WEB";
+
+  function fetchSheet(){
+    if(APPS_SCRIPT_URL === CONFIG_PLACEHOLDER){
+      onConfigMissing();
+      return;
+    }
+    callbackCounter++;
+    var cbName = "migracaoCB_" + callbackCounter;
+    var timeoutId = setTimeout(function(){
+      onFetchError();
+      cleanup();
+    }, 15000);
+
+    window[cbName] = function(json){
+      clearTimeout(timeoutId);
+      try{
+        handleData(json);
+        setLive(true);
+      }catch(e){
+        onFetchError();
+      }
+      cleanup();
+    };
+
+    function cleanup(){
+      delete window[cbName];
+      if(script && script.parentNode){ script.parentNode.removeChild(script); }
+    }
+
+    var url = APPS_SCRIPT_URL + "?callback=" + cbName + "&_t=" + Date.now();
+    var script = document.createElement("script");
+    script.src = url;
+    script.onerror = function(){
+      clearTimeout(timeoutId);
+      onFetchError();
+      cleanup();
+    };
+    document.body.appendChild(script);
+  }
+
+  function onConfigMissing(){
+    setLive(false);
+    var banner = document.getElementById("errorBanner");
+    banner.textContent = "Painel ainda não configurado: cole a URL do App da Web (Apps Script) na variável APPS_SCRIPT_URL do arquivo.";
+    banner.classList.add("show");
+  }
+
+  function onFetchError(){
+    setLive(false);
+    document.getElementById("errorBanner").classList.add("show");
+  }
+
+  function pad2(n){ return String(n).padStart(2,"0"); }
+
+  function tickClock(){
+    var now = new Date();
+    document.getElementById("clockNow").textContent =
+      pad2(now.getHours()) + ":" + pad2(now.getMinutes()) + ":" + pad2(now.getSeconds());
+  }
+
+  function setLive(isLive){
+    var dot = document.getElementById("liveDot");
+    var label = document.getElementById("liveLabel");
+    if(isLive){
+      dot.classList.remove("offline");
+      label.textContent = "ao vivo";
+      document.getElementById("errorBanner").classList.remove("show");
+      var now = new Date();
+      document.getElementById("lastSync").textContent =
+        "atualizado às " + pad2(now.getHours()) + ":" + pad2(now.getMinutes()) + ":" + pad2(now.getSeconds());
+    } else {
+      dot.classList.add("offline");
+      label.textContent = "sem conexão";
+    }
+  }
+
+  function handleData(json){
+    if(json && json.erro){ throw new Error(json.erro); }
+    var counts = { "Não Migrado":0, "Selecionado - Não Iniciado":0, "Em Andamento":0, "Concluído":0 };
+    STATUS_ORDER.forEach(function(st){
+      if(json.counts && typeof json.counts[st] === "number") counts[st] = json.counts[st];
+    });
+    var total = typeof json.total === "number" ? json.total : STATUS_ORDER.reduce(function(s,k){ return s+counts[k]; }, 0);
+    var byDay = json.byDay || {};
+    render(counts, total, byDay);
+  }
+
+  function render(counts, total, byDay){
+    var totalForPct = total || 1;
+
+    var heroPctVal = Math.round(counts["Concluído"] / totalForPct * 100);
+    document.getElementById("heroPct").textContent = heroPctVal + "%";
+    document.getElementById("heroSub").textContent = counts["Concluído"] + " de " + total + " clientes migrados";
+    document.getElementById("heroFill").style.width = heroPctVal + "%";
+
+    // funil de fluxo — largura proporcional ao volume em cada etapa (piso para manter legibilidade)
+    var track = document.getElementById("flowTrack");
+    track.innerHTML = "";
+    var FLOOR = 10;
+    var freePool = 100 - FLOOR * STATUS_ORDER.length;
+    STATUS_ORDER.forEach(function(st){
+      var share = total > 0 ? (counts[st] / total) : (1 / STATUS_ORDER.length);
+      var width = FLOOR + share * freePool;
+      var pctVal = Math.round(counts[st] / total * 100);
+      var stage = document.createElement("div");
+      stage.className = "flow-stage";
+      stage.style.width = width + "%";
+      stage.style.background = STATUS_COLOR_RAW[st];
+      stage.style.color = STATUS_TEXT_COLOR[st];
+      stage.innerHTML =
+        '<div class="flow-value">' + counts[st] + '</div>' +
+        '<div class="flow-label">' + STATUS_SHORT_LABEL[st] + '</div>' +
+        '<div class="flow-pct">' + pctVal + '%</div>';
+      track.appendChild(stage);
+    });
+
+    renderActivity(byDay);
+  }
+
+  function dateKey(d){
+    return d.getFullYear() + "-" + pad2(d.getMonth()+1) + "-" + pad2(d.getDate());
+  }
+
+  function renderActivity(byDay){
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    var days = [];
+    for(var i = 13; i >= 0; i--){
+      var d = new Date(today);
+      d.setDate(d.getDate() - i);
+      days.push({ key: dateKey(d), count: byDay[dateKey(d)] || 0 });
+    }
+
+    var last7 = days.slice(7).reduce(function(s,d){ return s + d.count; }, 0);
+    var last14 = days.reduce(function(s,d){ return s + d.count; }, 0);
+    var anyConcluded = last14 > 0;
+    document.getElementById("activityWeek").textContent = last7;
+
+    var maxCount = Math.max.apply(null, days.map(function(d){ return d.count; })) || 1;
+    var wrap = document.getElementById("trendBars");
+    wrap.innerHTML = "";
+    days.forEach(function(d){
+      var bar = document.createElement("div");
+      bar.className = "trend-bar";
+      var h = Math.max(4, Math.round(d.count / maxCount * 60));
+      bar.innerHTML = '<div class="fill" style="height:' + h + 'px"></div>';
+      wrap.appendChild(bar);
+    });
+
+    document.getElementById("activityEmpty").style.display = anyConcluded ? "none" : "block";
+  }
+
+  tickClock();
+  setInterval(tickClock, 1000);
+  fetchSheet();
+  setInterval(fetchSheet, REFRESH_MS);
+})();
+</script>
+</body>
+</html>
