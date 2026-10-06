@@ -8,152 +8,162 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Open+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --page:#000d13;
-    --surface-1:#101d24;
-    --surface-2:#1a2b32;
-    --text-primary:#ffffff;
-    --text-secondary:#c3ccce;
-    --muted:#7d9096;
-    --border: rgba(255,255,255,0.10);
-    --accent-teal:#2ecfae;
-    --accent-blue:#378add;
-    --status-critical:#d03b3b;   /* Não Migrado */
-    --status-warning:#fab219;   /* Selecionado - Não Iniciado */
-    --status-serious:#ec835a;   /* Em Andamento */
-    --status-good:#0ca30c;      /* Concluído */
-    --on-dark:#ffffff;
-    --on-light:#211404;
-    --font-display: "Open Sans", "Segoe UI", system-ui, sans-serif;
-    --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
-  }
-  *{box-sizing:border-box;}
-  html,body{
-    margin:0; padding:0; height:100%;
-    background:var(--page);
-    color:var(--text-primary);
-    font-family: var(--font-body);
-    overflow:hidden;
-  }
-  body{
-    display:flex; flex-direction:column;
-    padding: 30px 44px 26px;
-    gap:22px;
-    min-height:100vh;
-    background:
-      radial-gradient(1100px 480px at 8% -10%, rgba(46,207,174,0.10), transparent 60%),
+  :root { --page: #000d13; --surface-1: #101d24; --surface-2: #1a2b32; --text-primary: #ffffff; --text-secondary: #c3ccce; --muted: #7d9096; --border: rgba(255,255,255,0.10); --accent-teal: #2ecfae; --accent-blue: #378add; --status-critical: #d03b3b; --status-warning: #fab219; --status-serious: #ec835a; --status-good: #0ca30c; --on-dark: #ffffff; --on-light: #211404; --font-display: "Open Sans", "Segoe UI", system-ui, sans-serif; --font-body: "Inter", "Segoe UI", system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  html { margin: 0; padding: 0; height: auto; background: var(--page); color: var(--text-primary); font-family: var(--font-body); overflow: visible; }
+  body { margin: 0 auto; padding: 36px clamp(16px,4vw,56px); height: auto; background: radial-gradient(1100px 480px at 8% -10%, rgba(46,207,174,0.10), transparent 60%),
       radial-gradient(900px 500px at 100% 0%, rgba(55,138,221,0.12), transparent 55%),
-      var(--page);
-  }
-  header{ display:flex; align-items:center; justify-content:space-between; }
-  .title-block{ display:flex; align-items:center; gap:16px; }
-  .brand-mark{
-    width:40px; height:40px; border-radius:12px; flex:none;
-    background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
-  }
-  .title-block h1{
-    margin:0; font-family:var(--font-display); font-size:32px; font-weight:800; letter-spacing:-0.02em;
-  }
-  .title-block p{ margin:4px 0 0; color:var(--text-secondary); font-size:15px; }
-  .live-block{ text-align:right; }
-  .live-dot{
-    display:inline-block; width:10px; height:10px; border-radius:50%;
-    background:var(--status-good); margin-right:8px;
-    box-shadow: 0 0 0 0 rgba(12,163,12,0.6);
-    animation: pulse 2s infinite;
-  }
-  .live-dot.offline{ background:var(--status-critical); animation:none; box-shadow:none; }
-  @keyframes pulse{
-    0%{ box-shadow:0 0 0 0 rgba(12,163,12,0.5);}
+      var(--page); color: var(--text-primary); font-family: var(--font-body); overflow: visible; display: flex; flex-direction: column; gap: 24px; min-height: 100vh; max-width: 1600px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .title-block { display: flex; align-items: center; gap: 16px; min-width: 0; flex: 1; }
+  .brand-mark { width: 46px; height: 46px; border-radius: 12px; flex: none; background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue)); box-shadow: 0 8px 32px #2ecfae20; }
+  .title-block h1 { margin: 0; font-family: var(--font-body); font-size: clamp(24px,3vw,36px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+  .title-block p { margin: 4px 0 0; color: var(--text-secondary); font-size: 14px; margin-top: 8px; }
+  .live-block { text-align: right; flex: none; border: 1px solid var(--border); border-radius: 14px; padding: 12px 18px; background: #101d2499; }
+  .live-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--status-good); margin-right: 8px; box-shadow: 0 0 0 0 rgba(12,163,12,0.6); animation: pulse 2s infinite; }
+  .live-dot.offline { background: var(--status-critical); animation: none; box-shadow: none; }
+  .live-label { font-size: 14px; color: var(--text-secondary); }
+  .updated { font-size: 20px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .last-sync { font-size: 12px; color: #a7b8bf; margin-top: 2px; font-variant-numeric: tabular-nums; line-height: 1.6; }
+  .hero-section { background: linear-gradient(115deg,#14312f,#101d24 65%); border: 1px solid var(--border); border-radius: 22px; padding: 32px; display: flex; align-items: center; justify-content: space-between; gap: 40px; box-shadow: 0 12px 40px #00000018; }
+  .hero-main { flex: 1; min-width: 0; }
+  .hero-pct { font-family: var(--font-display); font-size: clamp(54px,7vw,88px); font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.055em; color: #69e8c8; }
+  .hero-sub { margin-top: 6px; font-size: 15px; color: var(--text-secondary); line-height: 1.5; }
+  .hero-track-wrap { flex: 1; min-width: 0; }
+  .hero-track { width: 100%; height: 12px; border-radius: 999px; overflow: hidden; background: var(--surface-2); border: 1px solid var(--border); }
+  .hero-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg,#278fba,#52dfbc); transition: width .6s ease; }
+  .hero-caption { margin-top: 10px; font-size: 14px; color: #a7b8bf; line-height: 1.6; }
+  .flow-section { background: var(--surface-1); border: 1px solid var(--border); border-radius: 22px; padding: 28px; flex: none; display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+  .flow-section h2 { margin: 0 0 4px; font-size: 20px; font-weight: 700; color: var(--text-primary); }
+  .flow-section .subhead { margin: 0 0 20px; font-size: 14px; color: #a7b8bf; line-height: 1.6; }
+  .flow-track { display: grid; flex: 1; align-items: stretch; min-height: 0; grid-template-columns: repeat(auto-fit,minmax(min(100%,175px),1fr)); gap: 12px; }
+  .flow-stage { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; padding: 20px; text-align: left; margin: 0; min-width: 0; border: 1px solid var(--border); border-top: 3px solid var(--stage-color); border-radius: 14px; background: linear-gradient(160deg,#203038,#15232b); color: var(--text-primary); }
+  .flow-value { font-family: var(--font-body); font-size: clamp(24px,3vw,42px); font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -.04em; color: var(--stage-color); }
+  .flow-label { margin-top: 8px; font-size: 14px; font-weight: 700; margin: 12px 0 8px; line-height: 1.5; min-height: 0; overflow-wrap: anywhere; }
+  .flow-pct { margin-top: 10px; font-size: 12px; opacity: 1; font-variant-numeric: tabular-nums; color: #a7b8bf; }
+  .activity-section { background: var(--surface-1); border: 1px solid var(--border); border-radius: 22px; padding: 28px; display: flex; align-items: stretch; gap: 36px; }
+  .activity-stat { flex: 0 1 260px; min-width: 0; border-right: 1px solid var(--border); padding-right: 24px; }
+  .activity-stat .value { font-family: var(--font-display); font-size: 44px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; color: var(--accent-teal); }
+  .activity-stat .label { margin-top: 6px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; max-width: 210px; }
+  .activity-trend { flex: 1; min-width: 0; align-self: center; }
+  .activity-trend .trend-head { display: flex; justify-content: space-between; font-size: 13px; color: #a7b8bf; margin-bottom: 8px; line-height: 1.6; }
+  .trend-bars { display: flex; align-items: flex-end; gap: 8px; height: 60px; border-bottom: 1px solid var(--border); position: relative; }
+  .trend-bar { flex: 1; background: #ffffff03; border-radius: 4px 4px 2px 2px; min-height: 4px; position: relative; height: 100%; outline-offset: 3px; }
+  .trend-bar .fill { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 4px 4px 2px 2px; background: linear-gradient(180deg, var(--accent-teal), var(--accent-blue)); }
+  .activity-empty { font-size: 13px; color: #a7b8bf; margin-top: 8px; line-height: 1.6; padding: 20px; border: 1px dashed var(--border); border-radius: 10px; }
+  .error-banner { display: none; background: #351f28; color: #ffd4da; padding: 10px 16px; border-radius: 12px; font-size: 14px; font-weight: 600; border: 1px solid #fb879150; line-height: 1.6; }
+  .error-banner.show { display: block; }
+  .eyebrow { color: var(--text-secondary); font-size: 10px; font-weight: 700; letter-spacing: .16em; margin-bottom: 12px; }
+  .stage-top { display: flex; justify-content: space-between; align-items: center; }
+  .stage-step { font-size: 11px; color: #a7b8bf; font-weight: 600; }
+  .stage-dot { height: 8px; width: 8px; border-radius: 50%; background: var(--stage-color); }
+  .stage-track { height: 4px; background: #ffffff0d; border-radius: 8px; margin-top: 16px; overflow: hidden; }
+  .stage-track>div { height: 100%; background: var(--stage-color); border-radius: 8px; }
+  .trend-head { gap: 12px; flex-wrap: wrap; }
+  .loading-note { color: var(--text-secondary); }
+  .quality-notice { color: #f2cb70; font-size: 13px; line-height: 1.6; margin: 0 0 16px; }
+  .chart-axis { font-size: 12px; color: #a7b8bf; margin-top: 10px; line-height: 1.6; }
+  .bar-detail { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #203038; padding: 8px; border-radius: 6px; font-size: 12px; white-space: nowrap; z-index: 2; }
+  .trend-bar:hover .bar-detail, .trend-bar:focus .bar-detail { display: block; }
+  .plan-section { background: var(--surface-1); border: 1px solid var(--border); border-radius: 22px; padding: 28px; display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+  .plan-section h2 { margin: 0 0 4px; font-size: 20px; font-weight: 700; }
+  .plan-section .subhead { margin: 0; font-size: 14px; color: #a7b8bf; line-height: 1.6; }
+  .plan-kpis { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,180px),1fr)); gap: 12px; }
+  .plan-kpi { border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; background: linear-gradient(160deg,#203038,#15232b); min-width: 0; }
+  .plan-kpi .k-label { font-size: 12px; color: #a7b8bf; line-height: 1.5; }
+  .plan-kpi .k-value { font-size: clamp(24px,2.6vw,34px); font-weight: 800; line-height: 1.15; margin-top: 6px; font-variant-numeric: tabular-nums; letter-spacing: -.03em; }
+  .plan-kpi .k-sub { font-size: 12px; color: #a7b8bf; margin-top: 4px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+  .k-good { color: #52dfbc; } .k-bad { color: #fb8791; }
+  .plan-list { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .wave { display: grid; grid-template-columns: 150px minmax(0,1fr) auto; gap: 16px; align-items: center; padding: 14px 20px; border-top: 1px solid var(--border); }
+  .wave:first-child { border-top: 0; }
+  .wave.current { background: #2ecfae0d; box-shadow: inset 3px 0 0 #52dfbc; }
+  .wave-dates { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 14px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+  .wave-dates small { display: block; color: #a7b8bf; font-size: 13px; }
+  .wave-meta { font-size: 15px; color: #a7b8bf; line-height: 1.5; }
+  .wave-meta b { color: var(--text-primary); }
+  .wave-tag { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; border: 1px solid var(--border); color: #a7b8bf; vertical-align: 2px; }
+  .wave-tag.on { color: #52dfbc; border-color: #52dfbc66; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .chip { position: relative; width: 44px; height: 22px; border-radius: 6px; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; outline-offset: 2px; cursor: default; }
+  .chip.future { background: #6fb6c833; border: 1px solid #6fb6c855; }
+  .chip.tonight { background: transparent; border: 2px solid #7bb7ff; animation: chipPulse 2s infinite; }
+  .chip.measuring { background: #52dfbc22; border: 1px dashed #52dfbc; color: var(--text-primary); }
+  .chip.hit { background: #52dfbc; color: #04221b; }
+  .chip.partial { background: #f2cb70; color: #2b1d00; }
+  .chip.miss { background: #fb8791; color: #2c0509; }
+  .chip:hover .bar-detail, .chip:focus .bar-detail { display: block; }
+  .chip .bar-detail { color: var(--text-primary); font-weight: 500; }
+  .wave-acc { text-align: right; font-size: 13px; color: #a7b8bf; line-height: 1.4; font-variant-numeric: tabular-nums; }
+  .wave-acc b { display: block; font-size: 22px; color: var(--text-primary); }
+  .wave-acc span { display: block; }
+  .plan-legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; color: #a7b8bf; line-height: 1.6; }
+  .plan-legend i { display: inline-block; width: 18px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .cum-wrap { position: relative; }
+  .cum-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; color: #a7b8bf; margin-bottom: 10px; line-height: 1.6; }
+  .cum-key { display: inline-flex; align-items: center; gap: 6px; margin-left: 14px; }
+  .cum-key i { display: inline-block; width: 18px; border-top: 2px solid; }
+  .cum-chart { position: relative; height: 200px; border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); }
+  .cum-chart svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .cum-cols { position: absolute; inset: 0; display: flex; }
+  .cum-col { flex: 1; position: relative; outline-offset: -2px; }
+  .cum-col:hover, .cum-col:focus { background: #ffffff0a; }
+  .cum-col:hover .bar-detail, .cum-col:focus .bar-detail { display: block; }
+  .cum-col .bar-detail { bottom: auto; top: 8px; }
+  .cum-axis { display: flex; justify-content: space-between; font-size: 12px; color: #a7b8bf; margin-top: 8px; font-variant-numeric: tabular-nums; }
+  .plan-note { font-size: 13px; color: #a7b8bf; line-height: 1.6; margin: 0; }
+  @keyframes chipPulse { 0%,100%{ border-color:#7bb7ff; } 50%{ border-color:#7bb7ff44; } }
+  [hidden] { display: none!important; }
+  @keyframes pulse {
+0%{ box-shadow:0 0 0 0 rgba(12,163,12,0.5);}
     70%{ box-shadow:0 0 0 10px rgba(12,163,12,0);}
     100%{ box-shadow:0 0 0 0 rgba(12,163,12,0);}
   }
-  .live-label{ font-size:14px; color:var(--text-secondary); }
-  .updated{ font-size:22px; font-weight:700; margin-top:2px; font-variant-numeric: tabular-nums;}
-  .last-sync{ font-size:12px; color:var(--muted); margin-top:2px; font-variant-numeric: tabular-nums;}
-
-  /* hero */
-  .hero-section{
-    background:var(--surface-1); border:1px solid var(--border); border-radius:22px;
-    padding:26px 36px; display:flex; align-items:center; justify-content:space-between; gap:32px;
+  @media(max-width:700px) {
+body{padding:24px 16px;gap:16px;}
+    .title-block{gap:12px;}
+    .brand-mark{width:32px;height:32px;border-radius:10px;}
+    .live-block{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;text-align:left;}
+    .live-label,.last-sync{font-size:11px;}
+    .updated{font-size:16px;margin:0;}
+    .hero-section{flex-direction:column;align-items:stretch;gap:24px;padding:24px;}
+    .flow-section,.activity-section{padding:20px;}
+    .flow-track{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .flow-stage,.flow-stage:first-child,.flow-stage:last-child{padding:16px;}
+    .flow-value{font-size:32px;}
+    .flow-stage:last-child{grid-column:1 / -1;}
+    .activity-section{flex-direction:column;gap:24px;}
+    .activity-stat{flex:auto;border-right:0;border-bottom:1px solid var(--border);padding:0 0 20px;}
+    .activity-stat .label{max-width:none;}
+    .activity-trend{width:100%;}
+    .plan-section{padding:20px;}
+    .wave{grid-template-columns:minmax(0,1fr) auto;padding:14px 16px;gap:10px 16px;}
+    .wave-main{grid-column:1 / -1;grid-row:2;}
   }
-  .hero-main{ flex:none; }
-  .hero-pct{ font-family:var(--font-display); font-size:96px; font-weight:800; line-height:1; font-variant-numeric: tabular-nums; }
-  .hero-sub{ margin-top:6px; font-size:18px; color:var(--text-secondary); }
-  .hero-track-wrap{ flex:1; }
-  .hero-track{
-    width:100%; height:20px; border-radius:999px; overflow:hidden;
-    background:var(--surface-2); border:1px solid var(--border);
+  @media(max-width:360px) {
+.flow-track{grid-template-columns:1fr;}.flow-label{min-height:0;}
   }
-  .hero-fill{ height:100%; border-radius:999px; background:linear-gradient(90deg, var(--accent-teal), var(--status-good)); transition:width .6s ease; }
-  .hero-caption{ margin-top:10px; font-size:14px; color:var(--muted); }
-
-  /* flow funnel */
-  .flow-section{
-    background:var(--surface-1); border:1px solid var(--border); border-radius:22px;
-    padding:26px 32px 30px; flex:1; display:flex; flex-direction:column; min-height:0;
+  @media(prefers-reduced-motion:reduce) {
+*,*::before,*::after{animation:none!important;transition:none!important;}
   }
-  .flow-section h2{ margin:0 0 4px; font-size:20px; font-weight:700; color:var(--text-primary); }
-  .flow-section .subhead{ margin:0 0 20px; font-size:14px; color:var(--muted); }
-  .flow-track{ display:flex; flex:1; align-items:stretch; min-height:170px; }
-  .flow-stage{
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:0 46px; text-align:center; flex:none;
-    clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 50%, calc(100% - 30px) 100%, 0 100%, 30px 50%);
-    transition: width .6s ease;
-  }
-  .flow-stage:first-child{
-    clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 50%, calc(100% - 30px) 100%, 0 100%);
-    padding-left:34px;
-  }
-  .flow-stage:last-child{
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 30px 50%);
-    padding-right:34px;
-  }
-  .flow-stage + .flow-stage{ margin-left:-30px; }
-  .flow-value{ font-family:var(--font-display); font-size:56px; font-weight:800; line-height:1; font-variant-numeric: tabular-nums; }
-  .flow-label{ margin-top:8px; font-size:17px; font-weight:700; }
-  .flow-pct{ margin-top:4px; font-size:14px; opacity:0.85; font-variant-numeric: tabular-nums; }
-  .flow-arrow-note{ display:flex; justify-content:center; margin-top:14px; font-size:13px; color:var(--muted); }
-
-  /* activity */
-  .activity-section{
-    background:var(--surface-1); border:1px solid var(--border); border-radius:22px;
-    padding:22px 32px; display:flex; align-items:center; gap:36px;
-  }
-  .activity-stat{ flex:none; min-width:220px; }
-  .activity-stat .value{ font-family:var(--font-display); font-size:44px; font-weight:800; font-variant-numeric: tabular-nums; line-height:1; color:var(--accent-teal); }
-  .activity-stat .label{ margin-top:6px; font-size:14px; color:var(--text-secondary); }
-  .activity-trend{ flex:1; min-width:0; }
-  .activity-trend .trend-head{ display:flex; justify-content:space-between; font-size:13px; color:var(--muted); margin-bottom:8px; }
-  .trend-bars{ display:flex; align-items:flex-end; gap:6px; height:60px; }
-  .trend-bar{ flex:1; background:var(--surface-2); border-radius:4px 4px 2px 2px; min-height:4px; position:relative; }
-  .trend-bar .fill{ position:absolute; left:0; right:0; bottom:0; border-radius:4px 4px 2px 2px; background:linear-gradient(180deg, var(--accent-teal), var(--accent-blue)); }
-  .activity-empty{ font-size:13px; color:var(--muted); margin-top:8px; }
-
-  .error-banner{
-    display:none; background:var(--status-critical); color:#fff; padding:10px 16px;
-    border-radius:12px; font-size:14px; font-weight:600;
-  }
-  .error-banner.show{ display:block; }
 </style>
 </head>
 <body>
 
-  <div class="error-banner" id="errorBanner">
-    Não foi possível carregar os dados da planilha. Verifique se o compartilhamento está liberado para "Qualquer pessoa com o link". Mostrando o último dado disponível.
+  <div class="error-banner" id="errorBanner" role="status">
+    Não foi possível atualizar os dados. Uma nova tentativa será feita automaticamente.
   </div>
 
   <header>
     <div class="title-block">
       <div class="brand-mark"></div>
       <div>
-        <h1>Migração de Clientes — Nova Plataforma</h1>
-        <p>Fluxo de migração em tempo real</p>
+        <div class="eyebrow">NOVA PLATAFORMA</div><h1>Migração de clientes</h1>
+        <p>Acompanhe cada etapa da transição</p>
       </div>
     </div>
     <div class="live-block">
-      <div><span class="live-dot" id="liveDot"></span><span class="live-label" id="liveLabel">ao vivo</span></div>
+      <div><span class="live-dot" id="liveDot"></span><span class="live-label" id="liveLabel">conectando</span></div>
       <div class="updated" id="clockNow">--:--:--</div>
       <div class="last-sync" id="lastSync">&nbsp;</div>
     </div>
@@ -161,30 +171,60 @@
 
   <div class="hero-section">
     <div class="hero-main">
-      <div class="hero-pct"><span id="heroPct">0%</span></div>
-      <div class="hero-sub" id="heroSub">0 de 0 clientes migrados</div>
+      <div class="eyebrow">PROGRESSO GERAL</div>
+      <div class="hero-pct"><span id="heroPct">—</span></div>
+      <div class="hero-sub" id="heroSub">Aguardando dados da migração</div>
     </div>
     <div class="hero-track-wrap">
       <div class="hero-track"><div class="hero-fill" id="heroFill" style="width:0%"></div></div>
-      <div class="hero-caption">Progresso geral do fluxo de migração para a nova plataforma</div>
+      <div class="hero-caption">Clientes com migração concluída</div>
     </div>
   </div>
 
   <div class="flow-section">
     <h2>Fluxo de Migração</h2>
-    <p class="subhead">Como os clientes avançam pelas etapas — da fila até a conclusão</p>
-    <div class="flow-track" id="flowTrack"></div>
+    <p class="subhead">Distribuição atual dos clientes, da seleção à conclusão</p>
+    <p id="qualityNotice" class="quality-notice" role="status" hidden></p>
+    <div class="flow-track" id="flowTrack"><p class="loading-note">Carregando etapas…</p></div>
+  </div>
+
+  <div class="plan-section">
+    <div>
+      <h2>Cronograma de virada</h2>
+      <p class="subhead" id="planSubhead">26 noites de carga · sem carga nas noites de domingo para os feriados de 12/10 e 02/11</p>
+    </div>
+    <div class="plan-kpis">
+      <div class="plan-kpi"><div class="k-label">Previsto até hoje</div><div class="k-value" id="planPrevisto">—</div><div class="k-sub" id="planPrevistoSub">&nbsp;</div></div>
+      <div class="plan-kpi"><div class="k-label">Realizado no cronograma</div><div class="k-value" id="planRealizado">—</div><div class="k-sub" id="planRealizadoSub">&nbsp;</div></div>
+      <div class="plan-kpi"><div class="k-label">Desvio acumulado</div><div class="k-value" id="planDesvio">—</div><div class="k-sub" id="planDesvioSub">&nbsp;</div></div>
+      <div class="plan-kpi"><div class="k-label">Próxima noite de carga</div><div class="k-value" id="planProxima">—</div><div class="k-sub" id="planProximaSub">&nbsp;</div></div>
+    </div>
+    <div class="plan-legend">
+      <span><i style="background:#52dfbc"></i>meta atingida</span>
+      <span><i style="background:#f2cb70"></i>abaixo da meta</span>
+      <span><i style="background:#fb8791"></i>nenhuma virada</span>
+      <span><i style="background:#52dfbc22;border:1px dashed #52dfbc"></i>em apuração</span>
+      <span><i style="border:2px solid #7bb7ff"></i>hoje à noite</span>
+      <span><i style="background:#6fb6c833;border:1px solid #6fb6c855"></i>prevista</span>
+    </div>
+    <div class="plan-list" id="planRows"></div>
+    <div class="cum-wrap">
+      <div class="cum-head"><span>Acumulado por noite de carga</span><span><span class="cum-key"><i style="border-color:#7d9096;border-top-style:dashed"></i>previsto</span><span class="cum-key"><i style="border-color:#52dfbc"></i>realizado</span></span></div>
+      <div class="cum-chart" id="cumChart"></div>
+      <div class="cum-axis" id="cumAxis"></div>
+    </div>
+    <p class="plan-note" id="planNote"></p>
   </div>
 
   <div class="activity-section">
     <div class="activity-stat">
-      <div class="value" id="activityWeek">0</div>
+      <div class="eyebrow">RITMO DA MIGRAÇÃO</div><div class="value" id="activityWeek">—</div>
       <div class="label">migrações concluídas nos últimos 7 dias</div>
     </div>
     <div class="activity-trend">
       <div class="trend-head"><span>Últimos 14 dias</span><span>Conclusões por dia</span></div>
-      <div class="trend-bars" id="trendBars"></div>
-      <div class="activity-empty" id="activityEmpty" style="display:none;">Nenhuma migração concluída registrada ainda — este gráfico passa a preencher conforme o time for concluindo.</div>
+      <div class="trend-bars" id="trendBars"></div><div id="chartAxis" class="chart-axis" hidden></div>
+      <div class="activity-empty" id="activityEmpty" style="display:none;">Nenhuma conclusão registrada nos últimos 14 dias.</div>
     </div>
   </div>
 
@@ -193,30 +233,40 @@
   // URL do "App da Web" gerada ao publicar o Apps Script (arquivo apps-script-painel.gs).
   // Troque pelo link que termina em /exec — enquanto estiver com o valor abaixo, o painel
   // mostra um aviso pedindo para configurar em vez de tentar buscar dados.
-  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxf2EKC4L17o1zHVct2fXFWWVQareymIvGCqbLj_8PXZu8qNdlQFjLuSCiAocHM9FAN/exec";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZYZzUkede1LWbekuOzVxsN1VPKTLRu_9Ob51LlwdfW9W2agSfeMVNeYYXEp2REfZM/exec";
   var REFRESH_MS = 15000;
 
-  var STATUS_ORDER = ["Não Migrado", "Selecionado - Não Iniciado", "Em Andamento", "Concluído"];
+  var STATUS_ORDER = ["Não Migrado", "Selecionado - Não Iniciado", "Fase 1", "Fase 2", "Em Andamento", "Concluído"];
   var STATUS_SHORT_LABEL = {
-    "Não Migrado": "Não Migrado",
-    "Selecionado - Não Iniciado": "Selecionado",
-    "Em Andamento": "Em Andamento",
-    "Concluído": "Concluído"
+    "Não Migrado": "Não migrado", "Selecionado - Não Iniciado": "Selecionado",
+    "Fase 1": "Fase 1", "Fase 2": "Fase 2", "Em Andamento": "Em andamento (legado)", "Concluído": "Concluído"
   };
   var STATUS_COLOR_RAW = {
-    "Não Migrado": "#d03b3b",
-    "Selecionado - Não Iniciado": "#fab219",
-    "Em Andamento": "#ec835a",
-    "Concluído": "#0ca30c"
-  };
-  var STATUS_TEXT_COLOR = {
-    "Não Migrado": "var(--on-dark)",
-    "Selecionado - Não Iniciado": "var(--on-light)",
-    "Em Andamento": "var(--on-light)",
-    "Concluído": "var(--on-dark)"
+    "Não Migrado": "#fb8791", "Selecionado - Não Iniciado": "#f2cb70",
+    "Fase 1": "#7bb7ff", "Fase 2": "#b7a0ff", "Em Andamento": "#f3a77a", "Concluído": "#52dfbc"
   };
 
+  // Cronograma de virada: cada onda tem noites consecutivas a partir de "inicio".
+  // A noite que começa em 30/09 vira na manhã de 01/10.
+  var PLANO = [
+    { inicio: "2026-09-30", noites: 2, porNoite: 10 },
+    { inicio: "2026-10-04", noites: 1, porNoite: 15 },
+    { inicio: "2026-10-05", noites: 4, porNoite: 20 },
+    { inicio: "2026-10-12", noites: 4, porNoite: 20 },
+    { inicio: "2026-10-18", noites: 5, porNoite: 25, grandes: 6 },
+    { inicio: "2026-10-25", noites: 5, porNoite: 25, grandes: 5 },
+    { inicio: "2026-11-02", noites: 4, porNoite: 25 },
+    { inicio: "2026-11-08", noites: 1, porNoite: 28 }
+  ];
+  // Qual data a "Data de Conclusão" da planilha registra para a virada de uma noite:
+  // "manha" = dia seguinte ao início da carga (ex.: noite 30/09→01/10 conta em 01/10);
+  // "noite" = dia em que a carga começou (conta em 30/09).
+  var CONCLUSAO_REGISTRADA_NA = "manha";
+
   var callbackCounter = 0;
+  var inFlight = false;
+  var dataTimeZone = "America/Sao_Paulo";
+  var generatedAt = null;
   var CONFIG_PLACEHOLDER = "COLE_AQUI_A_URL_DO_APP_DA_WEB";
 
   function fetchSheet(){
@@ -224,6 +274,8 @@
       onConfigMissing();
       return;
     }
+    if (inFlight) return;
+    inFlight = true;
     callbackCounter++;
     var cbName = "migracaoCB_" + callbackCounter;
     var timeoutId = setTimeout(function(){
@@ -237,12 +289,13 @@
         handleData(json);
         setLive(true);
       }catch(e){
-        onFetchError();
+        onFetchError("Dados indisponíveis ou inconsistentes. A integração precisa ser verificada.");
       }
       cleanup();
     };
 
     function cleanup(){
+      inFlight = false;
       delete window[cbName];
       if(script && script.parentNode){ script.parentNode.removeChild(script); }
     }
@@ -265,9 +318,11 @@
     banner.classList.add("show");
   }
 
-  function onFetchError(){
+  function onFetchError(message){
     setLive(false);
+    document.getElementById("errorBanner").textContent = message || "Não foi possível atualizar. Os últimos dados válidos, quando disponíveis, foram mantidos.";
     document.getElementById("errorBanner").classList.add("show");
+    document.getElementById("liveLabel").textContent = "atualização pendente";
   }
 
   function pad2(n){ return String(n).padStart(2,"0"); }
@@ -285,9 +340,7 @@
       dot.classList.remove("offline");
       label.textContent = "ao vivo";
       document.getElementById("errorBanner").classList.remove("show");
-      var now = new Date();
-      document.getElementById("lastSync").textContent =
-        "atualizado às " + pad2(now.getHours()) + ":" + pad2(now.getMinutes()) + ":" + pad2(now.getSeconds());
+      document.getElementById("lastSync").textContent = "dados de " + new Date(generatedAt).toLocaleString("pt-BR", {timeZone: dataTimeZone});
     } else {
       dot.classList.add("offline");
       label.textContent = "sem conexão";
@@ -295,14 +348,34 @@
   }
 
   function handleData(json){
-    if(json && json.erro){ throw new Error(json.erro); }
-    var counts = { "Não Migrado":0, "Selecionado - Não Iniciado":0, "Em Andamento":0, "Concluído":0 };
-    STATUS_ORDER.forEach(function(st){
-      if(json.counts && typeof json.counts[st] === "number") counts[st] = json.counts[st];
+    function count(value) { return Number.isSafeInteger(value) && value >= 0; }
+    function invalid() { throw new Error("Resposta inválida"); }
+    if (!json || json.erro || json.schemaVersion !== 2 || !json.counts || !json.quality || !json.byDay) invalid();
+    if (!count(json.total) || !count(json.quality.unclassified) || !count(json.quality.missingCompletionDate)) invalid();
+    STATUS_ORDER.forEach(function(st) { if (!count(json.counts[st])) invalid(); });
+    if (Object.keys(json.counts).some(function(st) { return STATUS_ORDER.indexOf(st) === -1; })) invalid();
+    var sum = STATUS_ORDER.reduce(function(n, st) { return n + json.counts[st]; }, 0);
+    if (sum + json.quality.unclassified !== json.total) invalid();
+    var dated = 0;
+    Object.keys(json.byDay).forEach(function(key) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(key) || !count(json.byDay[key])) invalid();
+      var date = new Date(key + "T12:00:00Z");
+      if (isNaN(date.getTime()) || date.toISOString().slice(0,10) !== key) invalid();
+      dated += json.byDay[key];
     });
-    var total = typeof json.total === "number" ? json.total : STATUS_ORDER.reduce(function(s,k){ return s+counts[k]; }, 0);
-    var byDay = json.byDay || {};
-    render(counts, total, byDay);
+    if (dated + json.quality.missingCompletionDate !== json.counts["Concluído"]) invalid();
+    if (typeof json.timeZone !== "string" || !json.timeZone || typeof json.geradoEm !== "string" || isNaN(Date.parse(json.geradoEm))) invalid();
+    new Intl.DateTimeFormat("pt-BR", {timeZone: json.timeZone}).format(new Date());
+    dataTimeZone = json.timeZone;
+    generatedAt = json.geradoEm;
+    render(json.counts, json.total, json.byDay);
+    var notes = [];
+    if (json.quality.unclassified) notes.push(json.quality.unclassified + " clientes sem status reconhecido (incluídos no total).");
+    if (json.counts["Em Andamento"]) notes.push(json.counts["Em Andamento"] + " clientes em andamento no status antigo (incluídos no total).");
+    if (json.quality.missingCompletionDate) notes.push(json.quality.missingCompletionDate + " concluídos sem data válida, fora do gráfico.");
+    var notice = document.getElementById("qualityNotice");
+    notice.textContent = notes.join(" ");
+    notice.hidden = !notes.length;
   }
 
   function render(counts, total, byDay){
@@ -314,43 +387,175 @@
         document.getElementById("heroSub").textContent = counts["Concluído"] + " de " + total + " clientes migrados";
         document.getElementById("heroFill").style.width = heroPctNum + "%";
 
-    // funil de fluxo — largura proporcional ao volume em cada etapa (piso para manter legibilidade)
     var track = document.getElementById("flowTrack");
     track.innerHTML = "";
-    var FLOOR = 10;
-    var freePool = 100 - FLOOR * STATUS_ORDER.length;
-    STATUS_ORDER.forEach(function(st){
-      var share = total > 0 ? (counts[st] / total) : (1 / STATUS_ORDER.length);
-      var width = FLOOR + share * freePool;
+    var visibleStatuses = STATUS_ORDER.filter(function(st){
+      return st !== "Em Andamento";
+    });
+    visibleStatuses.forEach(function(st, index){
       var pctNum = (total > 0 ? counts[st] / total : 0) * 100;
-            var pctDisplay = pctNum.toFixed(1).replace(".", ",");
-            var stage = document.createElement("div");
-            stage.className = "flow-stage";
-            stage.style.width = width + "%";
-            stage.style.background = STATUS_COLOR_RAW[st];
-            stage.style.color = STATUS_TEXT_COLOR[st];
-            stage.innerHTML =
-                      '<div class="flow-value">' + counts[st] + '</div>' +
-                      '<div class="flow-label">' + STATUS_SHORT_LABEL[st] + '</div>' +
-                      '<div class="flow-pct">' + pctDisplay + '%</div>';
+      var stage = document.createElement("div");
+      stage.className = "flow-stage";
+      stage.style.setProperty("--stage-color", STATUS_COLOR_RAW[st]);
+      stage.innerHTML =
+        '<div class="stage-top"><span class="stage-step">' + String(index + 1).padStart(2, "0") + '</span><span class="stage-dot"></span></div>' +
+        '<div class="flow-label">' + STATUS_SHORT_LABEL[st] + '</div>' +
+        '<div class="flow-value">' + counts[st].toLocaleString("pt-BR") + '</div>' +
+        '<div class="stage-track"><div style="width:' + Math.min(100, pctNum) + '%"></div></div>' +
+        '<div class="flow-pct">' + pctNum.toFixed(1).replace(".", ",") + '% da base</div>';
       track.appendChild(stage);
     });
 
+    renderPlan(byDay);
     renderActivity(byDay);
   }
 
-  function dateKey(d){
-    return d.getFullYear() + "-" + pad2(d.getMonth()+1) + "-" + pad2(d.getDate());
+  function todayUTC(){
+    var parts = new Intl.DateTimeFormat("en-CA", {timeZone:dataTimeZone, year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+    var dateParts = {};
+    parts.forEach(function(p){ dateParts[p.type] = p.value; });
+    return new Date(Date.UTC(+dateParts.year, +dateParts.month - 1, +dateParts.day, 12));
+  }
+
+  function addDays(key, n){
+    var d = new Date(key + "T12:00:00Z");
+    d.setUTCDate(d.getUTCDate() + n);
+    return d.toISOString().slice(0,10);
+  }
+
+  function ddmm(key){ return key.slice(8,10) + "/" + key.slice(5,7); }
+  function fmt(n){ return n.toLocaleString("pt-BR"); }
+  function signed(n){ return (n > 0 ? "+" : n < 0 ? "−" : "") + fmt(Math.abs(n)); }
+
+  function buildNights(byDay, todayKey){
+    var nights = [], acc = 0;
+    PLANO.forEach(function(onda, w){
+      for(var i = 0; i < onda.noites; i++){
+        var start = addDays(onda.inicio, i), end = addDays(start, 1);
+        var key = CONCLUSAO_REGISTRADA_NA === "noite" ? start : end;
+        var state = end < todayKey ? "closed" : end === todayKey ? "measuring" : start === todayKey ? "tonight" : "future";
+        acc += onda.porNoite;
+        nights.push({ wave: w, start: start, end: end, key: key, meta: onda.porNoite, planAcc: acc,
+                      done: byDay[key] || 0, state: state });
+      }
+    });
+    return nights;
+  }
+
+  function renderPlan(byDay){
+    var todayKey = todayUTC().toISOString().slice(0,10);
+    var nights = buildNights(byDay, todayKey);
+    var nightKeys = {};
+    nights.forEach(function(n){ nightKeys[n.key] = true; });
+    var firstKey = nights[0].start, lastKey = nights[nights.length - 1].end;
+    var planTotal = nights[nights.length - 1].planAcc;
+
+    // Realizado: toda conclusão datada dentro do período do cronograma até hoje,
+    // inclusive as fora das noites de carga (contadas à parte na nota).
+    var realized = 0, offNight = 0;
+    Object.keys(byDay).forEach(function(k){
+      if (k < firstKey || k > lastKey || k > todayKey) return;
+      realized += byDay[k];
+      if (!nightKeys[k]) offNight += byDay[k];
+    });
+
+    var due = nights.filter(function(n){ return n.state === "closed" || n.state === "measuring"; });
+    var planned = due.length ? due[due.length - 1].planAcc : 0;
+    var diff = realized - planned;
+    var next = nights.filter(function(n){ return n.state === "tonight" || n.state === "future"; })[0];
+    var remainingNights = nights.filter(function(n){ return n.state === "tonight" || n.state === "future"; }).length;
+
+    document.getElementById("planPrevisto").textContent = fmt(planned);
+    document.getElementById("planPrevistoSub").textContent = due.length + " de " + nights.length + " noites · meta total " + fmt(planTotal);
+    document.getElementById("planRealizado").textContent = fmt(realized);
+    document.getElementById("planRealizadoSub").textContent = (planned ? (realized / planned * 100).toFixed(0) + "% do previsto · " : "") + (planTotal ? (realized / planTotal * 100).toFixed(1).replace(".", ",") + "% da meta" : "");
+    var desvio = document.getElementById("planDesvio");
+    desvio.textContent = signed(diff);
+    desvio.className = "k-value " + (diff < 0 ? "k-bad" : diff > 0 ? "k-good" : "");
+    document.getElementById("planDesvioSub").textContent = diff < 0 ? "empresas atrás do cronograma" : diff > 0 ? "empresas à frente do cronograma" : "em linha com o cronograma";
+    if (next) {
+      document.getElementById("planProxima").textContent = ddmm(next.start) + " → " + ddmm(next.end);
+      var restante = Math.max(0, planTotal - realized);
+      document.getElementById("planProximaSub").textContent = (next.state === "tonight" ? "hoje · " : "") + "meta " + next.meta + " · faltam " + fmt(restante) + " em " + remainingNights + (remainingNights === 1 ? " noite" : " noites") + " (" + Math.ceil(restante / remainingNights) + "/noite)";
+    } else {
+      document.getElementById("planProxima").textContent = "—";
+      document.getElementById("planProximaSub").textContent = "cronograma encerrado";
+    }
+
+    var STATE_LABEL = { closed: "", measuring: "em apuração", tonight: "hoje à noite", future: "prevista" };
+    var rows = document.getElementById("planRows");
+    rows.innerHTML = "";
+    var realizedAcc = 0, waveDoneUpTo = {};
+    nights.forEach(function(n){
+      if (n.state === "closed" || n.state === "measuring") realizedAcc += n.done;
+      waveDoneUpTo[n.wave] = realizedAcc;
+    });
+    PLANO.forEach(function(onda, w){
+      var wn = nights.filter(function(n){ return n.wave === w; });
+      var started = wn[0].state === "closed" || wn[0].state === "measuring";
+      var finished = wn[wn.length - 1].state === "closed";
+      var current = !finished && (started || wn.some(function(n){ return n.state === "tonight"; }));
+      var waveDone = wn.reduce(function(s, n){ return s + (n.state === "closed" || n.state === "measuring" ? n.done : 0); }, 0);
+      var tag = finished ? '<span class="wave-tag">concluída</span>' : current ? '<span class="wave-tag on">em curso</span>' : "";
+
+      var row = document.createElement("div");
+      row.className = "wave" + (current ? " current" : "");
+      var chips = wn.map(function(n){
+        var cls = n.state === "closed" ? (n.done >= n.meta ? "hit" : n.done > 0 ? "partial" : "miss") : n.state;
+        var shown = n.state === "closed" || n.state === "measuring";
+        var detail = "Noite " + ddmm(n.start) + " → " + ddmm(n.end) + ": " + (shown ? n.done + " de " + n.meta + " concluídas" : "meta " + n.meta) + (STATE_LABEL[n.state] ? " · " + STATE_LABEL[n.state] : "");
+        return '<span class="chip ' + cls + '" tabindex="0" role="img" aria-label="' + detail + '">' + (shown ? n.done : "") + '<span class="bar-detail">' + detail + '</span></span>';
+      }).join("");
+      row.innerHTML =
+        '<div class="wave-dates">' + ddmm(onda.inicio) + ' a ' + ddmm(wn[wn.length - 1].end) + '<small>' + onda.noites + (onda.noites === 1 ? ' noite' : ' noites') + '</small></div>' +
+        '<div class="wave-main"><div class="wave-meta"><b>' + onda.porNoite + ' por noite</b> · ' + (onda.porNoite * onda.noites) + ' empresas' + (onda.grandes ? ' · ' + onda.grandes + ' grandes' : '') + tag + '</div>' +
+        '<div class="chips">' + chips + '</div></div>' +
+        '<div class="wave-acc">acumulado<b>' + fmt(wn[wn.length - 1].planAcc) + '</b>' + (started ? '<span>realizado ' + fmt(waveDoneUpTo[w]) + ' · onda ' + waveDone + '/' + (onda.porNoite * onda.noites) + '</span>' : '') + '</div>';
+      rows.appendChild(row);
+    });
+
+    renderCumulative(nights, planTotal);
+
+    var notes = ["Virada medida pela Data de Conclusão de cada empresa com status Concluído (noite contada na data da " + (CONCLUSAO_REGISTRADA_NA === "noite" ? "carga" : "manhã seguinte") + ")."];
+    if (offNight) notes.push(offNight + " conclusões datadas fora das noites de carga entram no realizado, mas não em nenhuma noite.");
+    document.getElementById("planNote").textContent = notes.join(" ");
+  }
+
+  function renderCumulative(nights, planTotal){
+    var W = 1000, H = 200, n = nights.length;
+    function x(i){ return (i + 0.5) / n * W; }
+    function y(v){ return H - v / planTotal * H; }
+    var planPts = nights.map(function(nt, i){ return x(i).toFixed(1) + "," + y(nt.planAcc).toFixed(1); });
+    var acc = 0, realPts = [], lastReal = null;
+    nights.forEach(function(nt, i){
+      if (nt.state !== "closed" && nt.state !== "measuring") return;
+      acc += nt.done;
+      nt.realAcc = acc;
+      realPts.push(x(i).toFixed(1) + "," + y(Math.min(acc, planTotal)).toFixed(1));
+      lastReal = i;
+    });
+    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true">' +
+      [0.25, 0.5, 0.75].map(function(f){ return '<line x1="0" x2="' + W + '" y1="' + (H * f) + '" y2="' + (H * f) + '" stroke="#ffffff10" vector-effect="non-scaling-stroke"/>'; }).join("") +
+      '<polyline points="' + planPts.join(" ") + '" fill="none" stroke="#7d9096" stroke-width="2" stroke-dasharray="6 5" vector-effect="non-scaling-stroke"/>' +
+      (realPts.length ? '<polyline points="' + realPts.join(" ") + '" fill="none" stroke="#52dfbc" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>' : '') +
+      '</svg>';
+    var cols = nights.map(function(nt){
+      var detail = ddmm(nt.start) + " → " + ddmm(nt.end) + " · previsto " + fmt(nt.planAcc) + (nt.realAcc != null ? " · realizado " + fmt(nt.realAcc) : "");
+      return '<div class="cum-col" tabindex="0" role="img" aria-label="' + detail + '"><span class="bar-detail">' + detail + '</span></div>';
+    }).join("");
+    var dot = lastReal != null ? '<span style="position:absolute;width:10px;height:10px;border-radius:50%;background:#52dfbc;border:2px solid #101d24;transform:translate(-50%,50%);left:' + ((lastReal + 0.5) / n * 100) + '%;bottom:' + (Math.min(nights[lastReal].realAcc, planTotal) / planTotal * 100) + '%"></span>' : '';
+    document.getElementById("cumChart").innerHTML = svg + dot + '<div class="cum-cols">' + cols + '</div>';
+    document.getElementById("cumAxis").innerHTML = '<span>' + ddmm(nights[0].start) + '</span><span>escala 0 a ' + fmt(planTotal) + ' empresas</span><span>' + ddmm(nights[n - 1].end) + '</span>';
   }
 
   function renderActivity(byDay){
-    var today = new Date();
-    today.setHours(0,0,0,0);
+    var today = todayUTC();
     var days = [];
     for(var i = 13; i >= 0; i--){
       var d = new Date(today);
-      d.setDate(d.getDate() - i);
-      days.push({ key: dateKey(d), count: byDay[dateKey(d)] || 0 });
+      d.setUTCDate(d.getUTCDate() - i);
+      var key = d.toISOString().slice(0,10);
+      days.push({ key: key, count: byDay[key] || 0 });
     }
 
     var last7 = days.slice(7).reduce(function(s,d){ return s + d.count; }, 0);
@@ -364,11 +569,18 @@
     days.forEach(function(d){
       var bar = document.createElement("div");
       bar.className = "trend-bar";
-      var h = Math.max(4, Math.round(d.count / maxCount * 60));
-      bar.innerHTML = '<div class="fill" style="height:' + h + 'px"></div>';
+      var h = Math.round(d.count / maxCount * 60);
+      bar.title = d.key.split("-").reverse().join("/") + ": " + d.count + " conclusões";
+      bar.setAttribute("aria-label", bar.title);
+      bar.setAttribute("tabindex", "0");
+      bar.setAttribute("role", "img");
+      bar.innerHTML = '<div class="fill" style="height:' + h + 'px"></div><span class="bar-detail">' + bar.title + '</span>';
       wrap.appendChild(bar);
     });
 
+    wrap.hidden = !anyConcluded;
+    document.getElementById("chartAxis").hidden = !anyConcluded;
+    document.getElementById("chartAxis").textContent = days[0].key.slice(5).split("-").reverse().join("/") + " — " + days[13].key.slice(5).split("-").reverse().join("/") + " · escala: 0 a " + maxCount + " conclusões/dia";
     document.getElementById("activityEmpty").style.display = anyConcluded ? "none" : "block";
   }
 
